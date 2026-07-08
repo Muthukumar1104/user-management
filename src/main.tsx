@@ -6,6 +6,7 @@ import { UserProvider } from "@/context/UserContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./context/AuthContext";
 
 if (import.meta.env.DEV) {
   const { worker } = await import("./mocks/browser");
@@ -17,19 +18,21 @@ if (import.meta.env.DEV) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <UserProvider>
-      <App />
+    <AuthProvider>
+      <UserProvider>
+        <App />
 
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="light"
-      />
-    </UserProvider>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          pauseOnHover
+          draggable
+          theme="light"
+        />
+      </UserProvider>
+    </AuthProvider>
   </StrictMode>
 );

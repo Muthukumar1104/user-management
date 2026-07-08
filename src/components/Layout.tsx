@@ -1,15 +1,19 @@
 import { Outlet } from "react-router-dom";
+import { Container } from "react-bootstrap";
+
+import AppNavbar from "./AppNavbar";
 
 const Layout = () => {
   return (
-    <div className="min-h-screen bg-slate-100">
-      <header className="bg-blue-600 p-4 text-white font-bold">
-        User Management
-      </header>
+    <div className="min-vh-100 bg-light">
+      <AppNavbar />
 
-      <main className="p-6">
+      <Container
+        fluid
+        className="py-4"
+      >
         <Outlet />
-      </main>
+      </Container>
     </div>
   );
 };

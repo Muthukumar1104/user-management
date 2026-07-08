@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
-import UserToolbar from "@/components/UserToolbar";
-import UserTable from "@/components/UserTable";
+import UserToolbar from "@/components/users/UserToolbar";
+import UserTable from "@/components/users/UserTable";
 import Pagination from "@/components/Pagination";
 import UserModal from "@/features/users/UserModal";
 import DeleteModal from "@/features/users/DeleteModal";
