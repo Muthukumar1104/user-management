@@ -12,8 +12,6 @@ const Dashboard = () => {
 
   return (
     <>
-      {/* Welcome Banner */}
-
       <Card data-testid="dashboard-banner" className="border-0 shadow-sm rounded-4 mb-4">
         <Card.Body className="p-4">
           <h2 className="fw-bold mb-2">
@@ -29,11 +27,7 @@ const Dashboard = () => {
         </Card.Body>
       </Card>
 
-      {/* Statistics */}
-
       <DashboardStats />
-
-      {/* Bottom Section */}
 
       <Row className="g-4 mt-1">
 
