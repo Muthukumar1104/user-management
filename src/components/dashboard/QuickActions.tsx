@@ -12,7 +12,6 @@ const QuickActions = () => {
   return (
     <Card className="border-0 shadow-sm rounded-4 h-100">
       <Card.Body>
-
         <div className="mb-4">
           <h5 className="fw-bold mb-1">
             Quick Actions
@@ -24,7 +23,6 @@ const QuickActions = () => {
         </div>
 
         <Row className="g-3">
-
           <Col xs={12}>
             <Button
               data-testid="add-user-action"
@@ -60,9 +58,7 @@ const QuickActions = () => {
               Dashboard Home
             </Button>
           </Col>
-
         </Row>
-
       </Card.Body>
     </Card>
   );
