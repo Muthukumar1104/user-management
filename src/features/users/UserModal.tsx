@@ -1,7 +1,8 @@
 import type { User } from "@/types/users";
 import type { UserFormValues } from "./schema/userSchema";
 import UserForm from "./UserForm";
-import AppModal from "@/components/modal";
+import AppModal from "@/components/ModalTemp";
+
 
 interface UserModalProps {
   show: boolean;
