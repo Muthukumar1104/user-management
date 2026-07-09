@@ -109,6 +109,8 @@ const Users = () => {
     const handleSubmit = async (
         data: UserFormValues
     ) => {
+        console.log("Submitted:", data);
+
         if (selectedUser) {
             await updateUser(selectedUser.id, data);
             toast.success("User updated successfully");

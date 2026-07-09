@@ -9,7 +9,6 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import {
   signupSchema,
   type SignupFormValues,
@@ -76,6 +75,7 @@ const SignupForm = ({
             </Form.Label>
 
             <Form.Control
+              data-testid="signup-firstname"
               type="text"
               placeholder="Enter first name"
               isInvalid={!!errors.firstName}
@@ -97,6 +97,7 @@ const SignupForm = ({
             </Form.Label>
 
             <Form.Control
+              data-testid="signup-lastname"
               type="text"
               placeholder="Enter last name"
               isInvalid={!!errors.lastName}
@@ -118,6 +119,7 @@ const SignupForm = ({
             </Form.Label>
 
             <Form.Control
+              data-testid="signup-email"
               type="email"
               placeholder="Enter email"
               isInvalid={!!errors.email}
@@ -141,6 +143,7 @@ const SignupForm = ({
             <InputGroup>
 
               <Form.Control
+                data-testid="signup-password"
                 type={
                   showPassword
                     ? "text"
@@ -184,6 +187,7 @@ const SignupForm = ({
             <InputGroup>
 
               <Form.Control
+                data-testid="signup-confirm-password"
                 type={
                   showConfirmPassword
                     ? "text"
@@ -226,6 +230,7 @@ const SignupForm = ({
           {/* Submit */}
 
           <Button
+            data-testid="signup-button"
             type="submit"
             variant="primary"
             className="w-100"

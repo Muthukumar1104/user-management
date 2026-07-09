@@ -30,6 +30,7 @@ const AppModal = ({
 }: AppModalProps) => {
   return (
     <Modal
+      data-testid="user-modal"
       show={show}
       onHide={onClose}
       centered
@@ -39,7 +40,9 @@ const AppModal = ({
       dialogClassName={dialogClassName}
     >
       <Modal.Header closeButton={!isLoading}>
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title data-testid="modal-title">
+          {title}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>{children}</Modal.Body>

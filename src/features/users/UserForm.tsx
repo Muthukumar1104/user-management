@@ -71,6 +71,7 @@ const UserForm = ({
         </label>
 
         <input
+          data-testid="first-name"
           {...register("firstName")}
           className="w-full rounded-lg border px-3 py-2"
         />
@@ -89,6 +90,7 @@ const UserForm = ({
         </label>
 
         <input
+          data-testid="last-name"
           {...register("lastName")}
           className="w-full rounded-lg border px-3 py-2"
         />
@@ -107,6 +109,7 @@ const UserForm = ({
         </label>
 
         <input
+          data-testid="email"
           type="email"
           {...register("email")}
           className="w-full rounded-lg border px-3 py-2"
@@ -126,8 +129,11 @@ const UserForm = ({
         </label>
 
         <input
+          data-testid="age"
           type="number"
-          {...register("age")}
+          {...register("age", {
+            valueAsNumber: true,
+          })}
           className="w-full rounded-lg border px-3 py-2"
         />
 
@@ -145,6 +151,7 @@ const UserForm = ({
         </label>
 
         <select
+          data-testid="status"
           {...register("status")}
           className="w-full rounded-lg border px-3 py-2"
         >
@@ -167,6 +174,7 @@ const UserForm = ({
       {/* Buttons */}
       <div className="flex justify-end gap-3 pt-4">
         <button
+          data-testid="cancel-user"
           type="button"
           onClick={onCancel}
           className="rounded-lg border px-5 py-2"
@@ -175,6 +183,7 @@ const UserForm = ({
         </button>
 
         <button
+          data-testid="save-user"
           type="submit"
           disabled={isSubmitting}
           className="rounded-lg bg-blue-600 px-5 py-2 text-white disabled:opacity-50"
@@ -182,8 +191,8 @@ const UserForm = ({
           {isSubmitting
             ? "Saving..."
             : initialValues
-            ? "Update User"
-            : "Create User"}
+              ? "Update User"
+              : "Create User"}
         </button>
       </div>
     </form>

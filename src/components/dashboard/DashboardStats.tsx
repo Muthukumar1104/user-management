@@ -28,6 +28,7 @@ const DashboardStats = () => {
 
       <Col xs={12} md={6} xl={3}>
         <StatsCard
+          dataTestId="total-users-card"
           title="Total Users"
           value={totalUsers}
           subtitle="Registered users"
@@ -39,6 +40,7 @@ const DashboardStats = () => {
 
       <Col xs={12} md={6} xl={3}>
         <StatsCard
+          dataTestId="active-users-card"
           title="Active Users"
           value={activeUsers}
           subtitle="Currently active"
@@ -50,6 +52,7 @@ const DashboardStats = () => {
 
       <Col xs={12} md={6} xl={3}>
         <StatsCard
+          dataTestId="inactive-users-card"
           title="Inactive Users"
           value={inactiveUsers}
           subtitle="Disabled accounts"
@@ -61,6 +64,7 @@ const DashboardStats = () => {
 
       <Col xs={12} md={6} xl={3}>
         <StatsCard
+          dataTestId="recent-users-stat-card"
           title="Recent Users"
           value={recentUsers}
           subtitle="Latest registrations"

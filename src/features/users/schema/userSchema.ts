@@ -13,9 +13,7 @@ export const userSchema = z.object({
     .string()
     .email("Invalid email"),
 
-  age: z
-    .number()
-    .min(18, "Minimum age is 18"),
+  age: z.number().min(18, "Minimum age is 18"),
 
   status: z.enum([
     "Active",

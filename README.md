@@ -1,75 +1,171 @@
-# React + TypeScript + Vite
+# User Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Installation
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Start Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Application runs at:
 
+```
+http://localhost:5173
+```
+
+---
+
+# Playwright
+
+## Install Playwright
+
+```bash
+npx playwright install
+```
+
+## Run All Tests
+
+```bash
+npx playwright test
+```
+
+## Run All Tests (Headed Mode)
+
+```bash
+npx playwright test --headed
+```
+
+## Run Specific Test File
+
+### Login
+
+```bash
+npx playwright test tests/auth/login.spec.ts --headed
+```
+
+### Signup
+
+```bash
+npx playwright test tests/auth/signup.spec.ts --headed
+```
+
+### Logout
+
+```bash
+npx playwright test tests/auth/logout.spec.ts --headed
+```
+
+### Dashboard
+
+```bash
+npx playwright test tests/dashboard/dashboard.spec.ts --headed
+```
+
+### Create User
+
+```bash
+npx playwright test tests/users/create-user.spec.ts --headed
+```
+
+### Edit User
+
+```bash
+npx playwright test tests/users/edit-user.spec.ts --headed
+```
+
+### Delete User
+
+```bash
+npx playwright test tests/users/delete-user.spec.ts --headed
+```
+
+### Pagination
+
+```bash
+npx playwright test tests/users/pagination.spec.ts --headed
+```
+
+---
+
+## Run Tests in Chromium
+
+```bash
+npx playwright test --project=chromium
+```
+
+## Run Tests in Firefox
+
+```bash
+npx playwright test --project=firefox
+```
+
+## Run Tests in WebKit
+
+```bash
+npx playwright test --project=webkit
+```
+
+---
+
+## Run Tests in UI Mode
+
+```bash
+npx playwright test --ui
+```
+
+---
+
+## Debug Tests
+
+```bash
+npx playwright test --debug
+```
+
+---
+
+## Generate HTML Report
+
+```bash
+npx playwright show-report
+```
+
+---
+
+## View Trace
+
+```bash
+npx playwright show-trace test-results/<test-folder>/trace.zip
+```
+
+Example:
+
+```bash
+npx playwright show-trace test-results/users-edit-user-Edit-User-chromium/trace.zip
+```
+
+---
+
+## Project Structure
+
+```
+tests/
+│
+├── auth/
+│   ├── login.spec.ts
+│   ├── signup.spec.ts
+│   └── logout.spec.ts
+│
+├── dashboard/
+│   └── dashboard.spec.ts
+│
+└── users/
+    ├── create-user.spec.ts
+    ├── edit-user.spec.ts
+    ├── delete-user.spec.ts
+    └── pagination.spec.ts
 ```

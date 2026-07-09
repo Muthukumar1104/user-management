@@ -88,6 +88,7 @@ const AppNavbar = () => {
             </Nav.Link>
 
             <Nav.Link
+              data-testid="nav-users"
               as={NavLink}
               to="/users"
               onClick={handleNavigate}
@@ -102,6 +103,7 @@ const AppNavbar = () => {
           <Dropdown align="end">
 
             <Dropdown.Toggle
+              data-testid="profile-menu"
               variant="light"
               className="d-flex align-items-center gap-2 border"
             >
@@ -132,6 +134,7 @@ const AppNavbar = () => {
               <Dropdown.Divider />
 
               <Dropdown.Item
+                data-testid="logout-button"
                 onClick={handleLogout}
                 disabled={loading}
               >

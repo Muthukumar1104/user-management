@@ -27,7 +27,7 @@ const DeleteModal = ({
             saveButtonText="Delete User"
             cancelButtonText="Cancel"
             isLoading={loading}
-            dialogClassName="delete-modal"
+            dialogClassName={dialogClassName}
         >
             <div className="py-2">
 
@@ -47,14 +47,14 @@ const DeleteModal = ({
 
                     <div className="ms-3">
 
-                        <p className="fw-semibold mb-2 fs-5">
+                        <p data-testid="delete-confirm-message" className="fw-semibold mb-2 fs-5">
                             Are you sure?
                         </p>
 
                         <p className="text-muted mb-2">
                             You are about to permanently delete
                             <br />
-                            <strong className="text-dark">
+                            <strong data-testid="delete-user-name" className="text-dark">
                                 {userName}
                             </strong>
                         </p>

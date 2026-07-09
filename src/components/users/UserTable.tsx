@@ -16,7 +16,7 @@ const UserTable = ({
 
       <div className="overflow-x-auto">
 
-        <table className="min-w-full">
+        <table data-testid="users-table" className="min-w-full">
 
           <thead className="bg-slate-100">
 
@@ -61,6 +61,7 @@ const UserTable = ({
               users.map((user) => (
                 <tr
                   key={user.id}
+                  data-testid={`user-row-${user.id}`}
                   className="transition hover:bg-slate-50"
                 >
                   <td className="px-6 py-4">
@@ -78,11 +79,10 @@ const UserTable = ({
                   <td className="px-6 py-4">
 
                     <span
-                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                        user.status === "Active"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${user.status === "Active"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                        }`}
                     >
                       {user.status}
                     </span>
@@ -94,6 +94,7 @@ const UserTable = ({
                     <div className="flex justify-center gap-3">
 
                       <button
+                        data-testid={`edit-user-${user.id}`}
                         onClick={() => onEdit(user)}
                         className="rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600"
                       >
@@ -101,6 +102,7 @@ const UserTable = ({
                       </button>
 
                       <button
+                        data-testid={`delete-user-${user.id}`}
                         onClick={() => onDelete(user.id)}
                         className="rounded-md bg-red-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-600"
                       >

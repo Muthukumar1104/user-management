@@ -27,6 +27,7 @@ const QuickActions = () => {
 
           <Col xs={12}>
             <Button
+              data-testid="add-user-action"
               variant="primary"
               className="w-100 d-flex align-items-center justify-content-center gap-2 py-2"
               onClick={() => navigate("/users")}
@@ -38,6 +39,7 @@ const QuickActions = () => {
 
           <Col xs={12}>
             <Button
+              data-testid="manage-users-action"
               variant="outline-primary"
               className="w-100 d-flex align-items-center justify-content-center gap-2 py-2"
               onClick={() => navigate("/users")}
@@ -49,6 +51,7 @@ const QuickActions = () => {
 
           <Col xs={12}>
             <Button
+              data-testid="dashboard-home-action"
               variant="outline-secondary"
               className="w-100 d-flex align-items-center justify-content-center gap-2 py-2"
               onClick={() => navigate("/")}

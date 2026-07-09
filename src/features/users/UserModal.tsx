@@ -6,11 +6,8 @@ import UserForm from "./UserForm";
 interface UserModalProps {
   show: boolean;
   user?: User | null;
-
   loading?: boolean;
-
   onClose: () => void;
-
   onSubmit: (
     data: UserFormValues
   ) => Promise<void> | void;

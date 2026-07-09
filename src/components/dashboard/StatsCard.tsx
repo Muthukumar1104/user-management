@@ -8,6 +8,7 @@ interface StatsCardProps {
   icon: ReactNode;
   iconBg?: string;
   borderColor?: string;
+  dataTestId?: string;
 }
 
 const StatsCard = ({
@@ -17,9 +18,11 @@ const StatsCard = ({
   icon,
   iconBg = "bg-primary",
   borderColor = "primary",
+  dataTestId
 }: StatsCardProps) => {
   return (
     <Card
+    data-testid={dataTestId}
       className={`border-${borderColor} border-2 shadow-sm h-100 rounded-4`}
     >
       <Card.Body>

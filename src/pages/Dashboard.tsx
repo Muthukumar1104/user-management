@@ -9,12 +9,12 @@ import { getGreeting } from "@/utils/common";
 const Dashboard = () => {
   const { user } = useAuth();
   const greeting = getGreeting();
-  
+
   return (
     <>
       {/* Welcome Banner */}
 
-      <Card className="border-0 shadow-sm rounded-4 mb-4">
+      <Card data-testid="dashboard-banner" className="border-0 shadow-sm rounded-4 mb-4">
         <Card.Body className="p-4">
           <h2 className="fw-bold mb-2">
             {greeting},{" "}

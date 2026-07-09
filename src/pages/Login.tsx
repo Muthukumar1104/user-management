@@ -1,15 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import LoginForm from "@/components/auth/LoginForm";
 import { useAuth } from "@/hooks/useAuth";
-
 import type { LoginFormValues } from "@/features/users/schema/loginSchema";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState("");
 
   const {
     login,
@@ -29,22 +28,23 @@ const Login = () => {
     data: LoginFormValues
   ) => {
     try {
+      console.log("Submitting login...", data);
+
+      setLoginError("");
+
       await login(data);
+
+      console.log("Login success");
 
       toast.success("Login successful");
 
-      navigate("/", {
-        replace: true,
-      });
+      navigate("/", { replace: true });
     } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Login failed"
-      );
+      console.log("Login failed:", error);
+
+      setLoginError("Invalid email or password");
     }
   };
-
   return (
     <Container fluid className="vh-100 bg-light">
 
@@ -58,6 +58,7 @@ const Login = () => {
         >
           <LoginForm
             loading={loading}
+            error={loginError}
             onSubmit={handleSubmit}
           />
         </Col>

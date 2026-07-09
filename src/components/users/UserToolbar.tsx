@@ -27,6 +27,7 @@ const UserToolbar = ({
         <div className="flex flex-col gap-3 sm:flex-row">
 
           <input
+            data-testid="search-user"
             type="text"
             value={search}
             placeholder="Search users..."
@@ -35,6 +36,7 @@ const UserToolbar = ({
           />
 
           <button
+            data-testid="add-user-button"
             onClick={onAddUser}
             className="rounded-lg bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
           >

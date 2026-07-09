@@ -9,7 +9,6 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import {
   loginSchema,
   type LoginFormValues,
@@ -17,6 +16,7 @@ import {
 
 interface LoginFormProps {
   loading: boolean;
+  error?: string;
   onSubmit: (
     data: LoginFormValues
   ) => Promise<void>;
@@ -24,6 +24,7 @@ interface LoginFormProps {
 
 const LoginForm = ({
   loading,
+  error,
   onSubmit,
 }: LoginFormProps) => {
   const [showPassword, setShowPassword] =
@@ -57,6 +58,16 @@ const LoginForm = ({
 
         <Form onSubmit={handleSubmit(onSubmit)}>
 
+          {error && (
+            <div
+              className="alert alert-danger"
+              data-testid="login-error"
+              role="alert"
+            >
+              {error}
+            </div>
+          )}
+
           {/* Email */}
 
           <Form.Group className="mb-3">
@@ -66,6 +77,7 @@ const LoginForm = ({
             </Form.Label>
 
             <Form.Control
+              data-testid="login-email"
               type="email"
               placeholder="Enter your email"
               isInvalid={!!errors.email}
@@ -89,6 +101,7 @@ const LoginForm = ({
             <InputGroup>
 
               <Form.Control
+                data-testid="login-password"
                 type={
                   showPassword
                     ? "text"
@@ -142,6 +155,7 @@ const LoginForm = ({
           {/* Login Button */}
 
           <Button
+            data-testid="login-button"
             type="submit"
             variant="primary"
             className="w-100"

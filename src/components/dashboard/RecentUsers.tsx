@@ -8,7 +8,7 @@ const RecentUsers = () => {
   const recentUsers = users.slice(0, 5);
 
   return (
-    <Card className="border-0 shadow-sm rounded-4 h-100">
+    <Card data-testid="recent-users-card" className="border-0 shadow-sm rounded-4 h-100">
       <Card.Body>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div>
