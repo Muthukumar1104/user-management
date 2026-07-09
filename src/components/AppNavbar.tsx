@@ -11,12 +11,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import { useAuth } from "@/hooks/useAuth";
 
 const AppNavbar = () => {
   const navigate = useNavigate();
-
   const [expanded, setExpanded] = useState(false);
 
   const {
@@ -28,9 +26,7 @@ const AppNavbar = () => {
   const handleLogout = async () => {
     try {
       await logout();
-
       toast.success("Logged out successfully");
-
       navigate("/login", {
         replace: true,
       });
