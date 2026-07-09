@@ -1,4 +1,4 @@
-import AppModal from "@/components/ModalTemp";
+import AppModal from "@/components/modal";
 import { Trash2 } from "lucide-react";
 
 interface DeleteModalProps {
