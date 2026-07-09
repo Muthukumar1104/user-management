@@ -7,7 +7,6 @@ const Layout = () => {
   return (
     <div className="min-vh-100 bg-light">
       <AppNavbar />
-
       <Container
         fluid
         className="py-4"
