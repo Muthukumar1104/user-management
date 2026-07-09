@@ -56,7 +56,6 @@ const StatsCard = ({
           >
             {icon}
           </div>
-
         </div>
       </Card.Body>
     </Card>

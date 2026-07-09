@@ -62,8 +62,6 @@ const RecentUsers = () => {
 
                   </div>
 
-                  {/* Right */}
-
                   <Badge
                     bg={
                       user.status === "Active"
