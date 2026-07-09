@@ -56,7 +56,6 @@ const AppModal = ({
           >
             {cancelButtonText}
           </Button>
-
           <Button
             variant="primary"
             onClick={onSave}
