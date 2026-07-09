@@ -1,5 +1,6 @@
-name: Playwright Tests
+name: Playwright CI
 
+# Run this workflow whenever a Pull Request targets the main branch
 on:
   pull_request:
     branches:
@@ -7,33 +8,49 @@ on:
 
 jobs:
   playwright:
+    # Use the latest Ubuntu runner
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      # Checkout the latest code from GitHub
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      # Install Node.js and cache npm dependencies
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
+      # Install project dependencies
       - name: Install Dependencies
         run: npm ci
 
+      # Install Playwright browsers and required Linux packages
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Build Project
+      # Ensure the application builds successfully
+      - name: Build Application
         run: npm run build
 
+      # Execute Playwright end-to-end tests
       - name: Run Playwright Tests
         run: npx playwright test
 
+      # Upload HTML report even if tests fail
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
+
+      # Upload screenshots, videos and traces
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
