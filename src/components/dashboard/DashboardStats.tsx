@@ -10,9 +10,7 @@ import StatsCard from "./StatsCard";
 
 const DashboardStats = () => {
   const { users } = useUsers();
-
   const totalUsers = users.length;
-
   const activeUsers = users.filter(
     (user) => user.status === "Active"
   ).length;
@@ -25,7 +23,6 @@ const DashboardStats = () => {
 
   return (
     <Row className="g-4">
-
       <Col xs={12} md={6} xl={3}>
         <StatsCard
           dataTestId="total-users-card"
@@ -73,7 +70,6 @@ const DashboardStats = () => {
           borderColor="warning"
         />
       </Col>
-
     </Row>
   );
 };
