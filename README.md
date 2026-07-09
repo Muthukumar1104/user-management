@@ -168,4 +168,49 @@ tests/
     ├── edit-user.spec.ts
     ├── delete-user.spec.ts
     └── pagination.spec.ts
+
+CI/CD flow
+    Developer
+    │
+    ▼
+Push feature branch
+    │
+    ▼
+Create Pull Request
+    │
+    ▼
+GitHub Actions Triggered
+    │
+    ▼
+Checkout Repository
+    │
+    ▼
+Install Dependencies
+    │
+    ▼
+Build React App
+    │
+    ▼
+Start Vite Server
+    │
+    ▼
+Run Playwright Tests
+    │
+    ├── ❌ Failed
+    │      │
+    │      ├── Upload HTML Report
+    │      ├── Upload Screenshots
+    │      ├── Upload Videos
+    │      └── Block Merge
+    │
+    └── ✅ Passed
+           │
+           ▼
+     Reviewer Approves PR
+           │
+           ▼
+        Merge into main
+           │
+           ▼
+     Vercel Auto Deploys
 ```
