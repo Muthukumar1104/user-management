@@ -1,14 +1,45 @@
+# Docker Compose specification version
 version: "3.9"
 
 services:
+  # -------------------------------------------------------
+  # Frontend Service
+  # Builds and runs the React/Vite application
+  # inside a Docker container using Nginx.
+  # -------------------------------------------------------
   frontend:
+
+    # Name of the running Docker container
     container_name: user-management
 
+    # Build configuration
     build:
+
+      # Project root directory
+      # (where Dockerfile is located)
       context: .
+
+      # Dockerfile used to build the image
       dockerfile: Dockerfile
 
+    # Port Mapping
+    #
+    # Host Machine : Docker Container
+    #
+    # http://localhost:5173
+    #            │
+    #            ▼
+    # Container Port 80 (Nginx)
     ports:
       - "5173:80"
 
+    # Restart Policy
+    #
+    # Restart the container automatically
+    # unless it is explicitly stopped.
+    #
+    # Useful when:
+    # - Docker Desktop restarts
+    # - System reboots
+    # - Container crashes unexpectedly
     restart: unless-stopped

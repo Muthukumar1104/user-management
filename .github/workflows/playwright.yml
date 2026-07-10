@@ -1,5 +1,15 @@
 name: Playwright CI
 
+# -------------------------------------------------------
+# GitHub Actions Triggers
+#
+# Run Playwright Tests:
+# 1. When a Pull Request is created/updated
+#    targeting the main branch.
+#
+# 2. Again after the Pull Request is merged
+#    into the main branch.
+# -------------------------------------------------------
 on:
   pull_request:
     branches:
@@ -11,19 +21,44 @@ on:
 
 jobs:
   playwright:
+
+    # -------------------------------------------------------
+    # Use the latest Ubuntu GitHub Actions runner
+    # -------------------------------------------------------
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout source code
+
+      # -------------------------------------------------------
+      # Checkout Repository
+      #
+      # Downloads the latest source code from GitHub
+      # into the GitHub Actions runner.
+      # -------------------------------------------------------
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # -------------------------------------------------------
       # Build Docker Image
+      #
+      # Builds the production Docker image
+      # using the project's Dockerfile.
+      # -------------------------------------------------------
       - name: Build Docker Image
         run: |
           docker build -t user-management .
 
+      # -------------------------------------------------------
       # Start Docker Container
+      #
+      # Runs the application inside Docker.
+      #
+      # Host:
+      # http://localhost:5173
+      #
+      # Container:
+      # Port 80 (Nginx)
+      # -------------------------------------------------------
       - name: Run Docker Container
         run: |
           docker run -d \
@@ -31,33 +66,58 @@ jobs:
             -p 5173:80 \
             user-management
 
-      # Wait until the application is ready
+      # -------------------------------------------------------
+      # Wait for Application
+      #
+      # Prevents Playwright from starting
+      # before the application is fully ready.
+      # -------------------------------------------------------
       - name: Wait for Application
         run: |
           timeout 30 bash -c \
           'until curl -s http://localhost:5173; do sleep 2; done'
 
-      # Setup Node.js
+      # -------------------------------------------------------
+      # Setup Node.js Environment
+      # -------------------------------------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      # Install dependencies
+      # -------------------------------------------------------
+      # Install Project Dependencies
+      # -------------------------------------------------------
       - name: Install Dependencies
         run: npm ci
 
-      # Install Playwright
+      # -------------------------------------------------------
+      # Install Playwright Browsers
+      #
+      # Downloads Chromium and required
+      # Linux dependencies for GitHub Actions.
+      # -------------------------------------------------------
       - name: Install Playwright
         run: |
           npx playwright install --with-deps
 
-      # Run Playwright Tests
+      # -------------------------------------------------------
+      # Execute Playwright Tests
+      #
+      # Runs all End-to-End (E2E) tests
+      # against the Dockerized application.
+      # -------------------------------------------------------
       - name: Run Playwright Tests
-        run: npx playwright test
+        run: |
+          npx playwright test
 
+      # -------------------------------------------------------
       # Upload HTML Report
+      #
+      # Always upload the Playwright report,
+      # even when tests fail.
+      # -------------------------------------------------------
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -65,7 +125,11 @@ jobs:
           name: playwright-report
           path: playwright-report/
 
-      # Upload videos/screenshots/traces
+      # -------------------------------------------------------
+      # Upload Screenshots, Videos & Traces
+      #
+      # Helpful for debugging failed tests.
+      # -------------------------------------------------------
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
@@ -73,7 +137,12 @@ jobs:
           name: test-results
           path: test-results/
 
-      # Stop Docker Container
+      # -------------------------------------------------------
+      # Stop & Remove Docker Container
+      #
+      # Cleanup step executed regardless
+      # of test success or failure.
+      # -------------------------------------------------------
       - name: Stop Docker Container
         if: always()
         run: |

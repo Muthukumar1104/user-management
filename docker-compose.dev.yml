@@ -1,18 +1,56 @@
+# Docker Compose specification version
 version: "3.9"
 
 services:
+  # -------------------------------------------------------
+  # Frontend Development Service
+  #
+  # Runs the React + Vite application inside Docker
+  # with Hot Module Replacement (HMR).
+  #
+  # This setup is intended for local development.
+  # -------------------------------------------------------
   frontend:
+
+    # Build Docker image using the development Dockerfile
     build:
+
+      # Project root directory
       context: .
+
+      # Dockerfile used only for development
       dockerfile: Dockerfile.dev
 
+    # Name of the running development container
     container_name: user-management-dev
 
+    # Port Mapping
+    #
+    # Local Machine : Docker Container
+    #
+    # http://localhost:5173
+    #            │
+    #            ▼
+    # Vite Development Server
     ports:
       - "5173:5173"
 
+    # Mount local source code into the container
+    #
+    # Benefits:
+    # • No need to rebuild Docker image after every code change
+    # • Supports Hot Module Replacement (HMR)
     volumes:
+
+      # Mount entire project
       - .:/app
+
+      # Prevent local node_modules from replacing
+      # container-installed node_modules
       - /app/node_modules
 
+    # Start the Vite development server
+    #
+    # --host allows access from the host machine
+    # outside the Docker container.
     command: npm run dev -- --host
