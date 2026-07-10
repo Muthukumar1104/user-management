@@ -88,6 +88,128 @@ http://localhost:5173
 
 ---
 
+---
+
+# VS Code Run & Debug
+
+This project includes pre-configured **VS Code Run & Debug** configurations to simplify local development and testing.
+
+Open the project in **Visual Studio Code** and navigate to:
+
+```
+Run and Debug (Ctrl + Shift + D)
+```
+
+Available launch configurations:
+
+| Configuration | Description |
+|--------------|-------------|
+| **Frontend (Docker)** | Builds the Docker image, starts the Docker container, and opens the application in the default browser. |
+| **Playwright Tests** | Runs all Playwright end-to-end tests in headless mode. |
+| **Playwright Tests (Headed)** | Runs all Playwright tests with a visible Chromium browser. |
+| **Playwright UI** | Launches Playwright UI mode for interactive test execution and debugging. |
+
+---
+
+# Run & Debug workflow
+
+```
+VS Code
+    │
+    ▼
+Run & Debug
+    │
+    ├── Frontend (Docker)
+    │        │
+    │        ├── Docker Build
+    │        ├── Docker Up
+    │        └── Open Browser
+    │
+    ├── Playwright Tests
+    │
+    ├── Playwright Tests (Headed)
+    │
+    └── Playwright UI
+```
+
+---
+
+## Frontend (Docker)
+
+Automatically performs the following steps:
+
+```
+Build Docker Image
+        │
+        ▼
+Start Docker Container
+        │
+        ▼
+Open Browser
+        │
+        ▼
+http://localhost:5173
+```
+
+---
+
+## Playwright Tests
+
+Runs all end-to-end tests.
+
+```
+Application
+        │
+        ▼
+Execute Playwright Tests
+        │
+        ▼
+Display Results
+```
+
+---
+
+## Playwright Tests (Headed)
+
+Runs Playwright with a visible Chromium browser.
+
+Useful when:
+
+- Debugging failed tests
+- Watching browser interactions
+- Developing new test cases
+
+---
+
+## Playwright UI
+
+Launches Playwright's interactive UI.
+
+Features:
+
+- Execute individual test files
+- Execute specific test cases
+- Debug tests
+- View traces
+- View screenshots
+- Re-run failed tests
+
+---
+
+## VS Code Tasks
+
+The project also includes predefined VS Code Tasks.
+
+| Task | Description |
+|------|-------------|
+| **Docker Build** | Builds the Docker image using Docker Compose. |
+| **Docker Up** | Builds (if required) and starts the Docker container. |
+| **Docker Down** | Stops and removes the Docker container. |
+
+These tasks are automatically executed by the **Frontend (Docker)** launch configuration when required.
+
+---
+
 # Docker
 
 ## Build Docker Image
