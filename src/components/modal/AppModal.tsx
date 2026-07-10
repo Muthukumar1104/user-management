@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { Modal, Button } from "react-bootstrap";
-
 interface AppModalProps {
   show: boolean;
   title: string;
