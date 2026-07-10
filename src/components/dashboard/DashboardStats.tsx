@@ -25,7 +25,6 @@ const DashboardStats = () => {
 
   return (
     <Row className="g-4">
-
       <Col xs={12} md={6} xl={3}>
         <StatsCard
           dataTestId="total-users-card"
@@ -73,7 +72,6 @@ const DashboardStats = () => {
           borderColor="warning"
         />
       </Col>
-
     </Row>
   );
 };
