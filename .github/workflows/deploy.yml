@@ -65,8 +65,8 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build \
-            -t ghcr.io/${{ github.repository_owner }}/user-management:latest \
-            -t ghcr.io/${{ github.repository_owner }}/user-management:${{ github.sha }} \
+            -t ghcr.io/muthukumar1104/user-management:latest \
+            -t ghcr.io/muthukumar1104/user-management:${{ github.sha }} \
             .
 
       # -------------------------------------------------------
@@ -74,8 +74,8 @@ jobs:
       # -------------------------------------------------------
       - name: Push Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/user-management:latest
-          docker push ghcr.io/${{ github.repository_owner }}/user-management:${{ github.sha }}
+          docker push ghcr.io/muthukumar1104/user-management:latest
+          docker push ghcr.io/muthukumar1104/user-management:${{ github.sha }}
 
       # -------------------------------------------------------
       # Install Vercel CLI
@@ -128,5 +128,5 @@ jobs:
         run: |
           echo "Application deployed successfully!"
           echo "Docker Image:"
-          echo "ghcr.io/${{ github.repository_owner }}/user-management:latest"
-          echo "ghcr.io/${{ github.repository_owner }}/user-management:${{ github.sha }}"
+          echo "ghcr.io/muthukumar1104/user-management:latest"
+          echo "ghcr.io/muthukumar1104/user-management:${{ github.sha }}"
