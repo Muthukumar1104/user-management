@@ -34,11 +34,7 @@ const RecentUsers = () => {
                 className="border-0 px-0 py-3"
               >
                 <div className="d-flex align-items-center justify-content-between">
-
-                  {/* Left */}
-
                   <div className="d-flex align-items-center">
-
                     <div
                       className="rounded-circle bg-primary text-white fw-bold d-flex justify-content-center align-items-center me-3"
                       style={{
@@ -54,15 +50,11 @@ const RecentUsers = () => {
                       <h6 className="mb-1 fw-semibold">
                         {user.firstName} {user.lastName}
                       </h6>
-
                       <small className="text-muted">
                         {user.email}
                       </small>
                     </div>
-
                   </div>
-
-                  {/* Right */}
 
                   <Badge
                     bg={
