@@ -14,7 +14,6 @@ const enableMSW =
 
 if (enableMSW) {
   const { worker } = await import("./mocks/browser");
-
   await worker.start({
     onUnhandledRequest: "bypass",
   });
