@@ -48,7 +48,7 @@ const UserTable = ({
 
           <tbody className="divide-y divide-slate-200">
 
-            {users.length === 0 ? (
+            {users?.length === 0 ? (
               <tr>
                 <td
                   colSpan={8}

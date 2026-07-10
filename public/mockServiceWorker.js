@@ -79,7 +79,7 @@ addEventListener('message', async function (event) {
       })
 
       // Unregister itself when there are no more clients
-      if (remainingClients.length === 0) {
+      if (remainingClients?.length === 0) {
         self.registration.unregister()
       }
 
@@ -228,7 +228,7 @@ async function getResponse(event, client, requestId, requestInterceptedAt) {
         (value) => value !== 'msw/passthrough',
       )
 
-      if (filteredValues.length > 0) {
+      if (filteredValues?.length > 0) {
         headers.set('accept', filteredValues.join(', '))
       } else {
         headers.delete('accept')

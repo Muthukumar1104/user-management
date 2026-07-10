@@ -23,7 +23,7 @@ const RecentUsers = () => {
         </div>
 
         <ListGroup variant="flush">
-          {recentUsers.length === 0 ? (
+          {recentUsers?.length === 0 ? (
             <div className="text-center py-4 text-muted">
               No users found.
             </div>

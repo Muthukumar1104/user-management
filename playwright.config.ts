@@ -60,26 +60,27 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
 
-  // Automatically start the Vite development server
-  // before running Playwright tests
-  webServer: {
-    // Command to start the application
-    command: "npm run dev",
-
-    // Wait until this URL becomes available
-    url: "http://localhost:5173",
-
-    // Local:
-    // Reuse an already running Vite server
-    //
-    // CI:
-    // Always start a fresh server
-    reuseExistingServer: !process.env.CI,
-
-    // Maximum time (2 minutes) to wait
-    // for the application to start
-    timeout: 120 * 1000,
-  },
+  // --------------------------------------------------
+  // Start application before Playwright
+  // --------------------------------------------------
+  //
+  // Local Development
+  // -----------------
+  // Automatically starts the Vite development server.
+  //
+  // GitHub Actions (CI)
+  // -------------------
+  // The application is already running inside a Docker
+  // container, so Playwright should NOT start another server.
+  //
+  webServer: process.env.CI
+    ? undefined
+    : {
+      command: "npm run dev",
+      url: "http://localhost:5173",
+      reuseExistingServer: true,
+      timeout: 120 * 1000,
+    },
 
   // Browser projects
   projects: [

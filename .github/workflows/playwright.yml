@@ -1,26 +1,41 @@
 name: Playwright CI
 
-# Run Playwright for Pull Requests and after merging into main
 on:
-  # Run on Pull Requests targeting main
   pull_request:
     branches:
       - main
 
-  # Run again after code is merged into main
   push:
     branches:
       - main
 
 jobs:
   playwright:
-    # Use Ubuntu latest runner
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repository
+      # Checkout source code
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      # Build Docker Image
+      - name: Build Docker Image
+        run: |
+          docker build -t user-management .
+
+      # Start Docker Container
+      - name: Run Docker Container
+        run: |
+          docker run -d \
+            --name user-management \
+            -p 5173:80 \
+            user-management
+
+      # Wait until the application is ready
+      - name: Wait for Application
+        run: |
+          timeout 30 bash -c \
+          'until curl -s http://localhost:5173; do sleep 2; done'
 
       # Setup Node.js
       - name: Setup Node.js
@@ -33,19 +48,16 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      # Install Playwright browsers
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+      # Install Playwright
+      - name: Install Playwright
+        run: |
+          npx playwright install --with-deps
 
-      # Build application
-      - name: Build Application
-        run: npm run build
-
-      # Run Playwright tests
+      # Run Playwright Tests
       - name: Run Playwright Tests
         run: npx playwright test
 
-      # Upload HTML report
+      # Upload HTML Report
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,10 +65,17 @@ jobs:
           name: playwright-report
           path: playwright-report/
 
-      # Upload screenshots, videos and traces
+      # Upload videos/screenshots/traces
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: test-results/
+
+      # Stop Docker Container
+      - name: Stop Docker Container
+        if: always()
+        run: |
+          docker stop user-management
+          docker rm user-management

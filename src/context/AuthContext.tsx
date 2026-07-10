@@ -5,9 +5,7 @@ import {
     useState,
     type ReactNode,
 } from "react";
-
 import { authService } from "@/services/authService";
-
 import type { AuthContextType } from "@/types/AuthContext";
 import type {
     AuthUser,

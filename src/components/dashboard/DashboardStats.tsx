@@ -11,17 +11,17 @@ import StatsCard from "./StatsCard";
 const DashboardStats = () => {
   const { users } = useUsers();
 
-  const totalUsers = users.length;
+  const totalUsers = users?.length;
 
   const activeUsers = users.filter(
     (user) => user.status === "Active"
-  ).length;
+  )?.length;
 
   const inactiveUsers = users.filter(
     (user) => user.status === "Inactive"
-  ).length;
+  )?.length;
 
-  const recentUsers = Math.min(users.length, 5);
+  const recentUsers = Math.min(users?.length, 5);
 
   return (
     <Row className="g-4">

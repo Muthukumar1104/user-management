@@ -1,48 +1,132 @@
-name: Deploy to Vercel
+name: Deploy to Production
 
-# Deploy only after code is merged into main
+# Run only when code is pushed to the main branch
+# (This happens after a Pull Request is merged)
 on:
   push:
     branches:
       - main
 
+# Required permissions
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   deploy:
-    name: Deploy Production
+    name: Build Docker & Deploy to Vercel
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout source code
+      # -------------------------------------------------------
+      # Checkout the latest source code
+      # -------------------------------------------------------
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Install Node.js
+      # -------------------------------------------------------
+      # Setup Node.js
+      # -------------------------------------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      # Install dependencies
+      # -------------------------------------------------------
+      # Install project dependencies
+      # -------------------------------------------------------
       - name: Install Dependencies
         run: npm ci
 
-      # Build project
+      # -------------------------------------------------------
+      # Build React/Vite application
+      # Ensures production build succeeds
+      # -------------------------------------------------------
       - name: Build Application
         run: npm run build
 
+      # -------------------------------------------------------
+      # Login to GitHub Container Registry (GHCR)
+      # -------------------------------------------------------
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # -------------------------------------------------------
+      # Build Docker Image
+      # Creates two tags:
+      # latest
+      # commit SHA
+      # -------------------------------------------------------
+      - name: Build Docker Image
+        run: |
+          docker build \
+            -t ghcr.io/${{ github.repository_owner }}/user-management:latest \
+            -t ghcr.io/${{ github.repository_owner }}/user-management:${{ github.sha }} \
+            .
+
+      # -------------------------------------------------------
+      # Push Docker Image to GitHub Container Registry
+      # -------------------------------------------------------
+      - name: Push Docker Image
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/user-management:latest
+          docker push ghcr.io/${{ github.repository_owner }}/user-management:${{ github.sha }}
+
+      # -------------------------------------------------------
       # Install Vercel CLI
+      # -------------------------------------------------------
       - name: Install Vercel CLI
-        run: npm install --global vercel
+        run: npm install -g vercel
 
-      # Pull Vercel project settings
+      # -------------------------------------------------------
+      # Download Vercel Project Configuration
+      # -------------------------------------------------------
       - name: Pull Vercel Environment
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel pull \
+            --yes \
+            --environment=production \
+            --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
+      # -------------------------------------------------------
       # Build using Vercel
+      # -------------------------------------------------------
       - name: Build with Vercel
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel build \
+            --prod \
+            --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
+      # -------------------------------------------------------
       # Deploy to Production
+      # -------------------------------------------------------
       - name: Deploy to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel deploy \
+            --prebuilt \
+            --prod \
+            --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # -------------------------------------------------------
+      # Show deployed Docker image tags
+      # -------------------------------------------------------
+      - name: Deployment Complete
+        run: |
+          echo "Application deployed successfully!"
+          echo "Docker Image:"
+          echo "ghcr.io/${{ github.repository_owner }}/user-management:latest"
+          echo "ghcr.io/${{ github.repository_owner }}/user-management:${{ github.sha }}"

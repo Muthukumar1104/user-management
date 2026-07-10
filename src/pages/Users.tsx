@@ -46,7 +46,7 @@ const Users = () => {
     }, [users, search]);
 
     const totalPages = Math.ceil(
-        filteredUsers.length / ITEMS_PER_PAGE
+        filteredUsers?.length / ITEMS_PER_PAGE
     );
 
     const paginatedUsers = filteredUsers.slice(

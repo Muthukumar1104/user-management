@@ -8,7 +8,11 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "./context/AuthContext";
 
-if (import.meta.env.DEV) {
+const enableMSW =
+  import.meta.env.DEV ||
+  import.meta.env.VITE_ENABLE_MSW === "true";
+
+if (enableMSW) {
   const { worker } = await import("./mocks/browser");
 
   await worker.start({
@@ -21,7 +25,6 @@ createRoot(document.getElementById("root")!).render(
     <AuthProvider>
       <UserProvider>
         <App />
-
         <ToastContainer
           position="bottom-center"
           autoClose={2500}
