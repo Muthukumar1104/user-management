@@ -1,7 +1,5 @@
 import { http, HttpResponse } from "msw";
-
 import { authUsers } from "./authUsers";
-
 import type {
   LoginPayload,
   SignupPayload,
